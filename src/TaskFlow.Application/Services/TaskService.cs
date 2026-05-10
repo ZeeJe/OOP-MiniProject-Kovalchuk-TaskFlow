@@ -28,10 +28,10 @@ public class TaskService
     public void ChangeTaskStatus(Guid taskId, TaskFlow.Domain.Enums.TaskStatus newStatus)
     {
         var task = _repository.GetById(taskId);
-        if (task == null) throw new Exception("Задачу не знайдено.");
+        if (task == null) throw new TaskFlow.Domain.Exceptions.TaskNotFoundException(taskId); // Використовуємо наш виняток
         
         task.ChangeStatus(newStatus);
-        _repository.Update(task); // Оновлюємо в репозиторії
+        _repository.Update(task);
     }
 
     // --- Робота з файлами (Асинхронна) ---
